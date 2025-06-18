@@ -24,7 +24,11 @@ export default function Home() {
     const loadData = async () => {
       try {
         setLoading(true);
-        const data = await loadTransactions("/cleaned_mpesa_data.csv");
+        // Use the correct path for GitHub Pages
+        const csvPath = process.env.NODE_ENV === 'production' 
+          ? '/mpesad3js/cleaned_mpesa_data.csv' 
+          : '/cleaned_mpesa_data.csv';
+        const data = await loadTransactions(csvPath);
         setTransactions(data);
       } catch (err) {
         setError("Failed to load transaction data");
